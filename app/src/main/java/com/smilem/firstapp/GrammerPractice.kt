@@ -3,7 +3,7 @@ package com.smilem.firstapp
 /**
  * 시작함수
  */
-fun main(){
+fun main() {
 //    helloWorld()
 //    println(add(4,5))
 //    testStringTemplate()
@@ -19,7 +19,71 @@ fun main(){
 
 //    classTest()
 //    inheritanceClassTest()
-    dataClassTest()
+//    dataClassTest()
+
+//    lambdaTest()
+
+//    companionObjectTest()
+
+    objectTest()
+}
+
+fun objectTest() {
+    val car1 = CarFactory.makeCar("소나타","승용차")
+    val car2 = CarFactory.makeCar("덤프","트럭")
+
+    println(CarFactory.cars.size.toString())
+}
+
+fun companionObjectTest() {
+    // static 역할을 함?
+    // 이름이 생기면 Companion을 사용하지 않음...
+//    val book = Book.Companion.create()
+    val book = Book.create()
+
+    println("${book.id} ${book.name}")
+}
+
+fun lambdaTest() {
+//    println(square(11))
+//    println(mul(5, 6))
+//    println(userInfo("cremazer", 39))
+
+    // 확장함수
+//    val my = "My"
+//    println(my.studyIsGood())
+//    println(introduce("cremazer", 39))
+//    println(getGrade(90))
+
+    // 익명내부함수
+
+}
+
+val getGrade : (Int) -> String = {
+    when(it) {
+        in 0..50 -> "C"
+        in 51..80 -> "B"
+        in 81..100 -> "A"
+        else -> "Umm..."
+    }
+}
+
+fun introduce(name: String, age: Int): String {
+    val introduceMyself: String.(Int) -> String = {
+        "I'm ${this} and ${it} years old."
+    }
+    return name.introduceMyself(age)
+}
+
+val studyIsGood: String.() -> String = {
+    this + " study is good."
+}
+
+//val square : (Int) -> (Int) = {number -> number * number}
+val square = { number: Int -> number * number }
+val mul = { num1: Int, num2: Int -> num1 * num2 }
+val userInfo = { name: String, age: Int ->
+    "My name is ${name}, I'm ${age}"
 }
 
 /**
@@ -48,7 +112,7 @@ fun inheritanceClassTest() {
  *
  */
 fun classTest() {
-    val userInfo = UserInfo("cremazer",39,1)
+    val userInfo = UserInfo("cremazer", 39, 1)
 //    println(userInfo)
 
     // 변수에 직접 접근한다...
@@ -66,10 +130,10 @@ fun classTest() {
 /**
  * let 테스트
  */
-fun letTest(email : String?) {
+fun letTest(email: String?) {
 //    var email = "cremazer@gmail.com"
 
-    email?.let{
+    email?.let {
         println("My email is ${email}")
     }
 }
@@ -77,14 +141,14 @@ fun letTest(email : String?) {
 /**
  * 삼항연산자 간단히 표현하기
  */
-fun simpleThreeItems(nation : String?) {
+fun simpleThreeItems(nation: String?) {
 
     var city = "Seoul"
 
     // java의 삼항연산자를 이렇게 줄여서 표현함.
     // 엘비스 프레슬리 연산자 ?:
 //    println(city + (nation == null ? "" : ", Korea"))
-    println(city + (nation?: ", Korea"))
+    println(city + (nation ?: ", Korea"))
 }
 
 /**
@@ -144,12 +208,12 @@ fun loopTest() {
 /**
  * 배열/리스트 테스트
  */
-fun arrayTest () {
-    val array = arrayOf(1,2,3)
-    val list = listOf(1,2,3)
+fun arrayTest() {
+    val array = arrayOf(1, 2, 3)
+    val list = listOf(1, 2, 3)
 
-    val array2 = arrayOf(1,"a",1.1f)
-    val list2 = listOf(1,"a",1.1f)
+    val array2 = arrayOf(1, "a", 1.1f)
+    val list2 = listOf(1, "a", 1.1f)
 
 
     for (data in array2) {
@@ -183,7 +247,7 @@ fun conditionTest() {
     var a = 10
     var b = 20
 
-    println(maxBy(a,b))
+    println(maxBy(a, b))
 }
 
 /**
@@ -223,19 +287,19 @@ fun helloWorld() {
  * 변수: 타입
  * 리턴은 함수 뒤에 : 리턴타입
  */
-fun add(a:Int, b:Int) : Int {
-    return a+b
+fun add(a: Int, b: Int): Int {
+    return a + b
 }
 
 /**
  * val : 상수, 변하지 않음
  * var : 변수, 변함
  */
-fun valandvar(){
-    val a : Int = 10
-    var b : Int = 10
+fun valandvar() {
+    val a: Int = 10
+    var b: Int = 10
 
-    var e : String
+    var e: String
 
 //    a = 20 // 컴파일 오류
     b = 100
